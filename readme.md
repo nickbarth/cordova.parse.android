@@ -27,4 +27,4 @@ Example:
 
 ## LICENSE ##
 
-MIT &copyr; 2014 Nick Barth
+MIT &copy; 2014 Nick Barth
