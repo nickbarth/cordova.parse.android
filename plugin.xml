@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" id="cordova.parse.android" version="1.0.0">
+    <engines>
+      <engine name="cordova" version=">=3.0.0" />
+    </engines>
+    <name>ParseAndroid</name>
+    <description>Plugin for Android to do Cordova stuff.</description>
+    <author>Nick Barth</author>
+    <keywords>android parse</keywords>
+    <license>MIT</license>
+
+    <!-- JavaScript interface -->
+    <js-module src="www/ParseAndroid.js" name="ParseAndroid" target="www/ParseAndroid.js">
+      <clobbers target="window.ParseAndroid" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="ParsePlugin">
+                <param name="android-package" value="org.apache.cordova.core.ParsePlugin" />
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/parse/Parse-1.6.0.jar" target-dir="libs" framework="true" />
+        <source-file src="src/android/ParsePlugin.java" target-dir="src/org/apache/cordova/core" />
+     </platform>
+</plugin>
