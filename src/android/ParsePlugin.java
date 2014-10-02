@@ -20,11 +20,21 @@ public class ParsePlugin extends CordovaPlugin {
                     try {
                         String appId = args.getString(0);
                         String clientKey = args.getString(1);
+                        String userToken = args.getString(2);
+                        
                         Parse.initialize(cordova.getActivity(), appId, clientKey);
-                        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-                        installation.put("userId", ParseUser.getCurrentUser().id);
-                        installation.saveInBackground();
-                        callbackContext.success("{ \"success\": true }");
+                        
+                        ParseUser.becomeInBackground("session-token-here", new LogInCallback() {
+                            public void done(ParseUser user, ParseException e) {
+                                if (user != null) {
+                                    // The current user is now set to user.
+                                    ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                                    installation.put("userId", ParseUser.getCurrentUser().id);
+                                    installation.saveInBackground();
+                                }
+                                callbackContext.success("{ \"success\": true }");
+                            }
+                        });
                     } catch (JSONException e) {
                         callbackContext.error("{ \"error\": \"Invalid JSON\" }");
                     }
