@@ -1,6 +1,6 @@
 var exec = require('cordova/exec');
 
-var androidInit = function(appId, clientId, callback) {
+var androidInit = function(appId, clientId, userId, callback) {
   var androidInitReturn = function (json) {
     var data = JSON.parse(json);
 
@@ -10,7 +10,7 @@ var androidInit = function(appId, clientId, callback) {
     return callback(null, data);
   }
 
-  exec(androidInitReturn, androidInitReturn, 'ParseInit', 'ParseInit', [appId, clientId]);
+  exec(androidInitReturn, androidInitReturn, 'ParseInit', 'ParseInit', [appId, clientId, userId]);
 };
 
 var ParseAndroid = {
