@@ -21,6 +21,9 @@ public class ParsePlugin extends CordovaPlugin {
                         String appId = args.getString(0);
                         String clientKey = args.getString(1);
                         Parse.initialize(cordova.getActivity(), appId, clientKey);
+                        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                        installation.put("userId",ParseUser.getCurrentUser().id);
+                        installation.saveInBackground();
                         callbackContext.success("{ \"success\": true }");
                     } catch (JSONException e) {
                         callbackContext.error("{ \"error\": \"Invalid JSON\" }");
