@@ -24,7 +24,7 @@ public class ParsePlugin extends CordovaPlugin {
                         
                         Parse.initialize(cordova.getActivity(), appId, clientKey);
                         
-                        ParseUser.becomeInBackground("session-token-here", new LogInCallback() {
+                        ParseUser.becomeInBackground(userToken, new LogInCallback() {
                             public void done(ParseUser user, ParseException e) {
                                 if (user != null) {
                                     // The current user is now set to user.
