@@ -11,7 +11,7 @@ Example:
 
 ```
 <script type="text/javascript">
-  ParseAndroid.init(appId, clientKey, function() {
+  ParseAndroid.init(appId, clientKey, userToken, function() {
     alert('success');
   }, function(e) {
     alert('error');
