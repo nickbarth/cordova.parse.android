@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import com.parse.Parse;
+import com.parse.ParseUser;
 import com.parse.ParseInstallation;
 import com.parse.PushService;
 import com.parse.LogInCallback; 
@@ -24,18 +25,13 @@ public class ParsePlugin extends CordovaPlugin {
                         String userToken = args.getString(2);
                         
                         Parse.initialize(cordova.getActivity(), appId, clientKey);
+                        ParseUser.become(userToken);
                         
-                        ParseUser.becomeInBackground(userToken, new LogInCallback() {
-                            public void done(ParseUser user, ParseException e) {
-                                if (user != null) {
-                                    // The current user is now set to user.
-                                    ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-                                    installation.put("userId", ParseUser.getCurrentUser().id);
-                                    installation.saveInBackground();
-                                }
-                                callbackContext.success("{ \"success\": true }");
-                            }
-                        });
+                        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                        installation.put("userId", ParseUser.getCurrentUser().id);
+                        installation.save();
+                        
+                        callbackContext.success("{ \"success\": true }");
                     } catch (JSONException e) {
                         callbackContext.error("{ \"error\": \"Invalid JSON\" }");
                     }
