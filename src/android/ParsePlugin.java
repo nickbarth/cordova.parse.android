@@ -28,7 +28,7 @@ public class ParsePlugin extends CordovaPlugin {
                         ParseUser.become(userToken);
                         
                         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-                        installation.put("userId", ParseUser.getCurrentUser().id);
+                        installation.put("userId", ParseUser.getCurrentUser().get("objectId"));
                         installation.save();
                         
                         callbackContext.success("{ \"success\": true }");
